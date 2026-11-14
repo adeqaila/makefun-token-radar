@@ -1,5 +1,9 @@
 # Token Radar — comps-2
 
+[![make.fun · token-radar-01](https://make.fun/badge/token-radar-01.svg)](https://make.fun/bounty/token-radar-01?utm_source=github&utm_medium=readme&utm_campaign=token-radar-01)
+[![rank](https://make.fun/badge/token-radar-01/adeqaila/makefun-token-radar/rank.svg)](https://make.fun/bounty/token-radar-01/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=token-radar-01)
+[![reward](https://make.fun/badge/token-radar-01/adeqaila/makefun-token-radar/reward.svg)](https://make.fun/bounty/token-radar-01?utm_source=github&utm_medium=readme&utm_campaign=token-radar-01)
+
 The best token launch radar: a program (`main.ts`, Node 22, standard library only) that
 reads the sealed DefiLlama snapshot, ranks every pre-token protocol by an implied value
 calibrated on the snapshot's own token protocols, and writes a dashboard a reader can use.
