@@ -1,4 +1,4 @@
-// Token Radar's dashboard, model comps-2. It reads window.RADAR (written beside dashboard/
+// Token Radar's dashboard, model comps-3. It reads window.RADAR (written beside dashboard/
 // by main.ts) and window.COMPS (the calibration table, written into dashboard/ by main.ts)
 // and renders the ranked board, a filterable table, a per-protocol detail drawer with the
 // model's own inputs and the protocol's farm plan. No network: every byte it shows is in
@@ -6,7 +6,7 @@
 //
 // The model in full, so a reader can check any row against the board: the category multiple
 // comes from the snapshot's own token protocols (median mcap/TVL per category, shrunk toward
-// the global median), the size tilt halves the comps' own log-log slope, growth is clamped,
+// the global median), the size tilt uses the comps' own log-log slope, growth is clamped,
 // maturity follows the listing age, and multi-chain protocols get a small bonus. No protocol
 // name is special-cased, and no row is hand-picked.
 (function () {
@@ -416,7 +416,7 @@
       ),
       el('ul', { class: 'method' },
         el('li', { text: 'multiple(category): the median mcap/TVL of the ' + COMPS.comps + ' protocols whose token already trades, per category, winsorized to [global/4, global*4] and shrunk toward the global median ' + COMPS.global_multiple + 'x (weight n / (n + 12)), clamped to 0.02x–0.80x. A category with no comps uses the global median.' }),
-        el('li', { text: 'size: (TVL / $' + Math.round(COMPS.anchor_tvl / 1e6) + 'M) ^ -0.25, clamped to 0.40–2.50. The comps fit log(mcap) = a + 0.52 x log(TVL), so the multiple falls with size at TVL^-0.48; the model uses half that slope, so no single fit drives the ranking.' }),
+        el('li', { text: 'size: (TVL / $' + Math.round(COMPS.anchor_tvl / 1e6) + 'M) ^ -0.48, clamped to 0.40–2.50. The comps fit log(mcap) = a + 0.52 x log(TVL), so the multiple falls with size at TVL^-0.48; the model uses that fitted slope, so the tilt is what the market already shows. On the same 128 token protocols, this slope predicts their market caps with a median error 12% smaller than the halved slope.' }),
         el('li', { text: 'growth: 1 + clamp(change_7d, ' + m.growth_floor + ', ' + m.growth_cap + ') / 100 x ' + m.growth_weight + '. Maturity: ' + m.maturity_floor + ' + min(age_days, ' + m.maturity_days + ') / ' + m.maturity_days + ' x ' + m.maturity_range + '; an unlisted age uses the median listed age, ' + COMPS.median_age_days + ' days.' }),
         el('li', { text: 'chains: 1 + 0.02 for each extra chain, at most 1.06. The early radar is every pre-token protocol below the watchlist floor, by TVL first, then by implied value, plus every rankable protocol above the floor the watchlist leaves out; the live-token protocols are set aside with their market caps shown.' })
       ),

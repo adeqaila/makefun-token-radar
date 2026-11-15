@@ -1,4 +1,4 @@
-// The token radar's model, version comps-2: one snapshot of the protocol universe in, one
+// The token radar's model, version comps-3: one snapshot of the protocol universe in, one
 // ranked board out.
 //
 // The board covers every slug in the snapshot's watchlist (the floor, never a ceiling) and adds
@@ -17,10 +17,10 @@
 //   median(cat)  = median(mcap / TVL) over the comps of one category, winsorized to
 //                  [global/4, global*4] so one outlier comparable cannot set the multiple
 //   multiple(cat)= shrink(median(cat) toward global, w = n / (n + 12)), clamped [0.02, 0.80]
-//   size         = clamp((TVL / anchor) ^ -0.25, 0.4, 2.5)
+//   size         = clamp((TVL / anchor) ^ -0.48, 0.4, 2.5)
 //                  the comps' own log-log fit is log(mcap) = a + 0.52*log(TVL), so the
-//                  multiple falls with size at TVL^-0.48; the model uses half that slope,
-//                  -0.25, so no single fit drives the ranking
+//                  multiple falls with size at TVL^-0.48; the model uses that fitted slope,
+//                  so the tilt is what the market already shows, not a chosen number
 //   growth       = clamp(change_7d, -60, 120) per cent; growthMult = 1 + growth/100 * 0.5
 //   maturity     = 0.55 + min(age_days, 1460) / 1460 * 0.45 (age unknown: the median listed age)
 //   chains       = 1 + 0.02 * min(chains - 1, 3), at most 1.06
@@ -80,7 +80,7 @@ export const MODEL: ModelConstants = {
   maturity_floor: 0.55,
   maturity_range: 0.45,
   maturity_days: 1460,
-  size_exponent: -0.25,
+  size_exponent: -0.48,
   size_floor: 0.4,
   size_cap: 2.5,
   multiple_floor: 0.02,
@@ -91,7 +91,7 @@ export const MODEL: ModelConstants = {
 };
 
 /** The model's version label: the dashboard names it and the rules quote it. */
-export const MODEL_VERSION = 'comps-2';
+export const MODEL_VERSION = 'comps-3';
 
 /** Early rows by TVL, then early rows by implied value among the rest. */
 export const EARLY_BY_TVL = 150;

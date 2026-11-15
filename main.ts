@@ -1,4 +1,4 @@
-// Token Radar, model comps-2 (Node 22, standard library only).
+// Token Radar, model comps-3 (Node 22, standard library only).
 //
 // The program reads the sealed snapshot from /input/snapshot.json (or --input <file|dir>),
 // calibrates the comparables model on the snapshot's own token protocols, scores every
@@ -101,6 +101,6 @@ writeFileSync(join(out, 'dossier.json'), buildDossier(out, { text_max_bytes: TEX
 
 process.stdout.write(
   `token radar: ${snapshot.protocols.length} protocols, ${snapshot.watchlist.length} on the watchlist, ${board.length} rows scored (${radar.early_size} early, ${radar.live_size} live set aside)\n` +
-    `token radar: comps-2 calibrated on ${calibration.comps} token protocols, global multiple ${calibration.global_multiple}, anchor TVL $${Math.round(calibration.anchor_tvl / 1e6)}M\n` +
+    `token radar: comps-3 calibrated on ${calibration.comps} token protocols, global multiple ${calibration.global_multiple}, anchor TVL $${Math.round(calibration.anchor_tvl / 1e6)}M\n` +
     `token radar: wrote ${join(out, 'board.json')}, ${join(out, 'data.js')}, ${join(out, 'dashboard')} (${dashboardFiles.length + 1} files), ${join(out, 'screenshots')} (${shots.length} images) and ${join(out, 'dossier.json')}\n`,
 );
